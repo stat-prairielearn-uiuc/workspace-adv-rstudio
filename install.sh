@@ -1,6 +1,9 @@
 echo "[config] Checking python version ..."
 python --version
 
+echo "[config] Checking python runtime (64-bit?) ..."
+python -c 'import sys;print("%x" % sys.maxsize, sys.maxsize > 2**32)'
+
 #echo "[install] Python 3.8 ..." 
 #yum install -y python38 python38-devel
 
