@@ -3,7 +3,7 @@ FROM prairielearn/workspace-jupyterlab:latest
 
 # Set a new label for the image
 LABEL org.label-schema.license="AGPL-3.0" \
-      org.label-schema.vcs-url="stat-prairielearn-uiuc/grader-dl" \
+      org.label-schema.vcs-url="stat-prairielearn-uiuc/workspace-dl-jupyterlab" \
       org.label-schema.vendor="PrairieLearn Autograder for Deep Learning" \
       maintainer="James Joseph Balamuta <balamut2@illinois.edu>"
 
