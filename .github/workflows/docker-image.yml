@@ -31,4 +31,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           no-cache: true
-          tags: jamesbalamuta/grader-dl:latest
+          tags: jamesbalamuta/workspace-dl-jupyterlab:latest
