@@ -1,7 +1,9 @@
 # PrairieLearn RStudio workspace template
 # 20210831 Eric Huber
 
-FROM rocker/rstudio
+# Requires :latest due to a lack of versioning, c.f.
+# https://github.com/rocker-org/rocker-versioned2/issues/144
+FROM rocker/rstudio:latest
 
 # Set a new label for the image
 LABEL org.label-schema.license="AGPL-3.0" \
