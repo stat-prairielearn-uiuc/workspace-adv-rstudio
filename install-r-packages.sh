@@ -49,7 +49,6 @@ install2.r --error --skipinstalled -n "$NCPUS" \
 
 ## dplyr database backends
 install2.r --error --skipmissing --skipinstalled -n "$NCPUS" \
-    arrow \
     dbplyr \
     DBI \
     dtplyr \
@@ -62,6 +61,8 @@ install2.r --error --skipmissing --skipinstalled -n "$NCPUS" \
 
 # Remove problematic package due to -fPIC
 # duckdb \
+# Remove due to time commitment required to compile and maybe an issue w/ cmake
+# arrow \
 
 ## a bridge to far? -- brings in another 60 packages
 # install2.r --error --skipinstalled -n "$NCPUS" tidymodels
