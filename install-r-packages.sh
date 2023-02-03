@@ -53,13 +53,15 @@ install2.r --error --skipmissing --skipinstalled -n "$NCPUS" \
     dbplyr \
     DBI \
     dtplyr \
-    duckdb \
     nycflights13 \
     Lahman \
     RMariaDB \
     RPostgres \
     RSQLite \
     fst
+
+# Remove problematic package due to -fPIC
+# duckdb \
 
 ## a bridge to far? -- brings in another 60 packages
 # install2.r --error --skipinstalled -n "$NCPUS" tidymodels
