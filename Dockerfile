@@ -94,9 +94,12 @@ RUN echo "session-default-working-dir=$EDITOR_FOCUS_DIR" >> /etc/rstudio/rsessio
 
 # Prepare the entrypoint script
 USER 0
-COPY ["pl-start.sh", "pl-gosu-helper.sh", "/pl-bin/"]
+
+# Added an r-package install
+COPY ["pl-start.sh", "pl-gosu-helper.sh", "install-r-packages.sh", "/pl-bin/"]
 RUN mkdir -p /pl-bin && \
-    chmod a+rx /pl-bin /pl-bin/pl-start.sh /pl-bin/pl-gosu-helper.sh
+    chmod a+rx /pl-bin /pl-bin/pl-start.sh /pl-bin/install-r-packages.sh /pl-bin/pl-gosu-helper.sh &&\
+    /pl-bin/install-r-packages.sh
 
 # Warning: Do NOT try to set RStudio Server's USERID environment variable
 # here, as this will cause the home directory to be deleted and recreated (or
