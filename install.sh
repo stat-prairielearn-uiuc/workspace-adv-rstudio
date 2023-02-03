@@ -1,22 +1,80 @@
-echo "[config] Checking python version ..."
-python --version
+#!/bin/bash
 
-echo "[config] Checking python runtime (64-bit?) ..."
-python -c 'import sys;print("%x" % sys.maxsize, sys.maxsize > 2**32)'
+## Obtained from 
+## https://github.com/rocker-org/rocker-versioned2/blob/master/scripts/install_tidyverse.sh
+##
+## Licensed under GPL >= 2
 
-#echo "[install] Python 3.8 ..." 
-#yum install -y python38 python38-devel
+set -e
 
-#alternatives --set python /usr/bin/python3.8
+## build ARGs
+NCPUS=${NCPUS:--1}
 
-#echo "[config] Checking old python version post-install ..."
-#python --version
+# a function to install apt packages only if they are not installed
+function apt_install() {
+    if ! dpkg -s "$@" >/dev/null 2>&1; then
+        if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
+            apt-get update
+        fi
+        apt-get install -y --no-install-recommends "$@"
+    fi
+}
 
-#echo "[config] Checking new python version post-install ..."
-#python38 --version
+apt_install \
+    libxml2-dev \
+    libcairo2-dev \
+    libgit2-dev \
+    default-libmysqlclient-dev \
+    libpq-dev \
+    libsasl2-dev \
+    libsqlite3-dev \
+    libssh2-1-dev \
+    libxtst6 \
+    libcurl4-openssl-dev \
+    libharfbuzz-dev \
+    libfribidi-dev \
+    libfreetype6-dev \
+    libpng-dev \
+    libtiff5-dev \
+    libjpeg-dev \
+    unixodbc-dev
 
-echo "[install] latest pip version ..."
-pip install --upgrade pip
+install2.r --error --skipinstalled -n "$NCPUS" \
+    tidyverse \
+    devtools \
+    rmarkdown \
+    BiocManager \
+    vroom \
+    gert
 
-echo "[install] Python packages from pypi ..."
-python3 -m pip install --no-cache-dir -r /requirements-dl.txt
+## dplyr database backends
+install2.r --error --skipmissing --skipinstalled -n "$NCPUS" \
+    arrow \
+    dbplyr \
+    DBI \
+    dtplyr \
+    duckdb \
+    nycflights13 \
+    Lahman \
+    RMariaDB \
+    RPostgres \
+    RSQLite \
+    fst
+
+## a bridge to far? -- brings in another 60 packages
+# install2.r --error --skipinstalled -n "$NCPUS" tidymodels
+
+# Clean up
+rm -rf /var/lib/apt/lists/*
+rm -rf /tmp/downloaded_packages
+
+## Strip binary installed lybraries from RSPM
+## https://github.com/rocker-org/rocker-versioned2/issues/340
+strip /usr/local/lib/R/site-library/*/libs/*.so
+
+# Check the tidyverse core packages' version
+echo -e "Check the tidyverse package...\n"
+
+R -q -e "library(tidyverse)"
+
+echo -e "\nInstall tidyverse package, done!"
