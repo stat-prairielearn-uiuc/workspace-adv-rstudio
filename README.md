@@ -1,6 +1,6 @@
 # workspace-adv-rstudio
 
-This repository contains a Docker image of a modified [RStudio PrairieLearn Workspace image](https://github.com/PrairieLearn/PrairieLearn/tree/67eefe4da85974b5b610ddf74fbdeccc90d9d960/workspaces/rstudio).
+This repository contains a Docker image of a modified [RStudio PrairieLearn Workspace image](https://github.com/PrairieLearn/PrairieLearn/tree/67eefe4da85974b5b610ddf74fbdeccc90d9d960/workspaces/rstudio) by [Eric Huber](https://github.com/echuber2).
 
 The underlying image uses [Ubuntu 20.04 (focal)](https://hub.docker.com/_/ubuntu/?tab=tags&name=focal) based on the [`jupyter/docker-stacks/base-notebook`](https://github.com/jupyter/docker-stacks/blob/main/base-notebook/Dockerfile#L6) image.
 
